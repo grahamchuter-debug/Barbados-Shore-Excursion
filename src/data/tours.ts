@@ -48,7 +48,7 @@ export const tours: Tour[] = [
     bookingUrl: 'https://www.shoreexcursionsgroup.com/tour/harrisons-cave-barbados/cabrcave',
     image: '/images/harrisons-cave.jpg',
     imageAlt:
-      "Electric tram tour through Harrison's Cave stalactites on a Barbados shore excursion from Bridgetown cruise port.",
+      "Harrison's Cave interior in Barbados with stalactites, crystal-clear subterranean pool, and illuminated limestone formations on a shore excursion from Bridgetown cruise port.",
     badges: ['Best Cave Tour', 'Best for First-Time Visitors', 'Best for Families'],
     returnToShip: true,
     highlights: [

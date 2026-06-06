@@ -143,7 +143,7 @@ export const guides: Guide[] = [
       "Harrison's Cave guide for Barbados cruise passengers. Distance from Bridgetown port, tour duration, what to expect, rainy-day tips, and best shore excursions to book.",
     image: '/images/harrisons-cave.jpg',
     imageAlt:
-      "Harrison's Cave underground tram tour — complete guide for cruise passengers visiting from Bridgetown Barbados.",
+      "Harrison's Cave interior in Barbados featuring stalactites and a turquoise subterranean pool — guide for cruise passengers visiting from Bridgetown port.",
     intro:
       "Harrison's Cave is Barbados' signature underground attraction — a crystallised limestone cavern system in the central uplands, accessed by electric tram with dramatic lighting, stalactites, stalagmites, and emerald pools.",
     sections: [
