@@ -18,7 +18,7 @@ export const guides: Guide[] = [
       'Complete Bridgetown cruise port guide for Barbados. Terminal layout, walking distances, taxis, Carlisle Bay proximity, safety tips, and return-to-ship advice for cruise passengers.',
     image: '/images/bridgetown-port.jpg',
     imageAlt:
-      'Bridgetown Barbados cruise port harbour viewed from the sea — guide for cruise ship passengers.',
+      'Cruise ships docked at Bridgetown Barbados cruise port with turquoise Caribbean water — port guide for cruise ship passengers.',
     intro:
       'Bridgetown is the capital of Barbados and the primary cruise port on the island. Most Eastern and Southern Caribbean itineraries dock at the Bridgetown Cruise Terminal, placing you within walking distance of UNESCO-listed historic Bridgetown and the turquoise waters of Carlisle Bay.',
     sections: [
@@ -313,7 +313,7 @@ export const guides: Guide[] = [
       'Barbados safety guide for cruise passengers. Bridgetown port area safety, taxi tips, beach security, scams to avoid, and practical advice for your shore day.',
     image: '/images/bridgetown-port.jpg',
     imageAlt:
-      'Bridgetown Barbados cruise port safety guide for cruise ship passengers exploring shore excursions.',
+      'Cruise ships at Bridgetown Barbados cruise terminal — safety guide for cruise passengers exploring shore excursions.',
     intro:
       'Barbados is among the safer Caribbean destinations for cruise passengers, with a stable government, strong tourism infrastructure, and a welcoming culture. Common-sense precautions keep your Bridgetown port day smooth and enjoyable.',
     sections: [
