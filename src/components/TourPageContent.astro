@@ -1,0 +1,168 @@
+---
+import type { Tour } from '../data/tours';
+import { getTourBySlug } from '../data/tours';
+import { getGuideBySlug } from '../data/guides';
+import Hero from './Hero.astro';
+import Badge from './Badge.astro';
+import CTABand from './CTABand.astro';
+import TourCard from './TourCard.astro';
+import { SITE } from '../data/site';
+
+interface Props {
+  tour: Tour;
+}
+
+const { tour } = Astro.props;
+
+const tourSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TouristTrip',
+  name: tour.shortTitle,
+  description: tour.metaDescription,
+  image: new URL(tour.image, SITE.url).href,
+  touristType: 'Cruise passengers',
+  provider: {
+    '@type': 'TravelAgency',
+    name: 'Shore Excursions Group',
+    url: tour.bookingUrl,
+  },
+  offers: {
+    '@type': 'Offer',
+    price: tour.salePrice?.replace('$', '') ?? tour.price.replace('From ', '').replace('$', ''),
+    priceCurrency: 'USD',
+    url: tour.bookingUrl,
+    availability: 'https://schema.org/InStock',
+  },
+  itinerary: {
+    '@type': 'ItemList',
+    itemListElement: tour.highlights.map((h, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: h,
+    })),
+  },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url },
+    { '@type': 'ListItem', position: 2, name: 'Best Barbados Shore Excursions', item: `${SITE.url}/best-barbados-shore-excursions` },
+    { '@type': 'ListItem', position: 3, name: tour.shortTitle, item: `${SITE.url}/${tour.slug}` },
+  ],
+};
+
+const relatedTourData = tour.relatedTours.map((s) => getTourBySlug(s)).filter(Boolean);
+const relatedGuideData = tour.relatedGuides.map((s) => getGuideBySlug(s)).filter(Boolean);
+---
+
+<Hero
+  title={tour.shortTitle}
+  subtitle={`Barbados shore excursion from Bridgetown cruise port · ${tour.duration} · ${tour.activityLevel} activity`}
+  image={tour.image}
+  imageAlt={tour.imageAlt}
+  compact={true}
+  primaryCta={{ label: `Book from ${tour.salePrice ?? tour.price}`, href: tour.bookingUrl }}
+  secondaryCta={{ label: 'Port Guide', href: '/barbados-port-guide' }}
+/>
+
+<div class="page-content">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a><span>›</span>
+      <a href="/best-barbados-shore-excursions">Excursions</a><span>›</span>
+      {tour.shortTitle}
+    </nav>
+
+    <div class="badge-row">
+      {tour.badges.map((b) => <Badge type="best" label={b} />)}
+      {tour.returnToShip && <Badge type="ship" label="Return To Ship On Time" />}
+      <Badge type="level" label={tour.activityLevel} level={tour.activityLevel.toLowerCase() as 'easy' | 'moderate'} />
+    </div>
+
+    <div class="two-col" style="margin-top: 1.5rem;">
+      <div class="prose">
+        <p class="lead">{tour.description.split('\n\n')[0]}</p>
+        {tour.description.split('\n\n').slice(1).map((para) => <p>{para}</p>)}
+
+        <div class="highlights-box">
+          <h3>Tour Highlights</h3>
+          <ul>
+            {tour.highlights.map((h) => <li>{h}</li>)}
+          </ul>
+        </div>
+
+        <div class="tips-list">
+          <h3>Cruise Passenger Tips</h3>
+          <ul>
+            {tour.cruisePassengerTips.map((t) => <li>{t}</li>)}
+          </ul>
+        </div>
+
+        <p>
+          <strong>Duration:</strong> {tour.duration} · <strong>Group size:</strong> {tour.groupSize} ·
+          <strong> Price:</strong> {tour.salePrice ? `${tour.salePrice} (was ${tour.price})` : tour.price}
+        </p>
+
+        <div class="btn-group">
+          <a href={tour.bookingUrl} class="btn btn-primary" target="_blank" rel="noopener sponsored">Book This Excursion</a>
+          <a href="/barbados-port-guide" class="btn btn-secondary">Bridgetown Port Guide</a>
+          <a href="/one-day-in-barbados-from-a-cruise-ship" class="btn btn-secondary">One Day Itineraries</a>
+        </div>
+      </div>
+      <aside>
+        <div class="content-image">
+          <img src={tour.image} alt={tour.imageAlt} width="600" height="375" />
+        </div>
+        <div class="snapshot-grid" style="margin-top: 1.25rem;">
+          <div class="snapshot-box">
+            <div class="icon">⏱</div>
+            <h3>{tour.duration}</h3>
+            <p>Total excursion time</p>
+          </div>
+          <div class="snapshot-box">
+            <div class="icon">👥</div>
+            <h3>{tour.groupSize.split(' ')[0]}</h3>
+            <p>{tour.groupSize}</p>
+          </div>
+          <div class="snapshot-box">
+            <div class="icon">🚢</div>
+            <h3>Ship Guarantee</h3>
+            <p>On-time return to Bridgetown pier</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    {relatedGuideData.length > 0 && (
+      <section style="margin-top: 3rem;">
+        <h2>Related Barbados Guides</h2>
+        <div class="link-grid">
+          {relatedGuideData.map((g) => g && (
+            <a href={`/${g.slug}`} class="link-card">{g.title.split('—')[0].trim()}</a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {relatedTourData.length > 0 && (
+      <section style="margin-top: 3rem;">
+        <h2>More Barbados Shore Excursions</h2>
+        <div class="tour-grid">
+          {relatedTourData.map((t) => t && <TourCard tour={t} />)}
+        </div>
+      </section>
+    )}
+  </div>
+</div>
+
+<CTABand
+  title={`Book ${tour.shortTitle} for Your Barbados Cruise Day`}
+  text="Reserve your spot before your ship arrives in Bridgetown. Guaranteed return to ship on all Shore Excursions Group Barbados tours."
+  ctaLabel="Book Now"
+  ctaHref={tour.bookingUrl}
+/>
+
+<script type="application/ld+json" set:html={JSON.stringify(tourSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />

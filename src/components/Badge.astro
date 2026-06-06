@@ -1,0 +1,21 @@
+---
+interface Props {
+  type: 'best' | 'ship' | 'level';
+  label: string;
+  level?: 'easy' | 'moderate';
+}
+
+const { type, label, level } = Astro.props;
+
+const className =
+  type === 'ship'
+    ? 'badge badge-ship'
+    : type === 'level'
+      ? `badge badge-level-${level ?? 'easy'}`
+      : 'badge badge-best';
+---
+
+<span class={className}>
+  {type === 'ship' && '✓ '}
+  {label}
+</span>

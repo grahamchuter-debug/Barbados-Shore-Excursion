@@ -1,0 +1,34 @@
+---
+interface Props {
+  title: string;
+  subtitle: string;
+  image: string;
+  imageAlt: string;
+  compact?: boolean;
+  primaryCta?: { label: string; href: string };
+  secondaryCta?: { label: string; href: string };
+}
+
+const { title, subtitle, image, imageAlt, compact = false, primaryCta, secondaryCta } = Astro.props;
+---
+
+<section class={`hero ${compact ? 'hero-compact' : ''}`}>
+  <img class="hero-bg" src={image} alt={imageAlt} width="1400" height="600" />
+  <div class="hero-overlay"></div>
+  <div class="container hero-content">
+    <h1>{title}</h1>
+    <p>{subtitle}</p>
+    {(primaryCta || secondaryCta) && (
+      <div class="btn-group">
+        {primaryCta && (
+          <a href={primaryCta.href} class="btn btn-primary" target={primaryCta.href.startsWith('http') ? '_blank' : undefined} rel={primaryCta.href.startsWith('http') ? 'noopener sponsored' : undefined}>
+            {primaryCta.label}
+          </a>
+        )}
+        {secondaryCta && (
+          <a href={secondaryCta.href} class="btn btn-outline">{secondaryCta.label}</a>
+        )}
+      </div>
+    )}
+  </div>
+</section>

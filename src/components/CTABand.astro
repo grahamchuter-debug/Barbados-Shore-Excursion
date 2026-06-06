@@ -1,0 +1,25 @@
+---
+import { SITE } from '../data/site';
+
+interface Props {
+  title?: string;
+  text?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const {
+  title = 'Ready to Explore Barbados from Bridgetown?',
+  text = 'Browse top-rated Barbados shore excursions with guaranteed return to your cruise ship. Book early — popular tours sell out on busy Caribbean port days.',
+  ctaLabel = 'View All Barbados Tours',
+  ctaHref = SITE.affiliateBase,
+} = Astro.props;
+---
+
+<section class="cta-band">
+  <div class="container">
+    <h2>{title}</h2>
+    <p>{text}</p>
+    <a href={ctaHref} class="btn btn-primary" target="_blank" rel="noopener sponsored">{ctaLabel}</a>
+  </div>
+</section>

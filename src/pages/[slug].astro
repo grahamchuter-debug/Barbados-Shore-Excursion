@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TourPageContent from '../components/TourPageContent.astro';
+import GuidePageContent from '../components/GuidePageContent.astro';
+import { tours } from '../data/tours';
+import { guides } from '../data/guides';
+import type { Tour } from '../data/tours';
+import type { Guide } from '../data/guides';
+
+export function getStaticPaths() {
+  const tourPaths = tours.map((tour) => ({
+    params: { slug: tour.slug },
+    props: { pageType: 'tour' as const, tour, guide: undefined },
+  }));
+
+  const guidePaths = guides.map((guide) => ({
+    params: { slug: guide.slug },
+    props: { pageType: 'guide' as const, guide, tour: undefined },
+  }));
+
+  return [...tourPaths, ...guidePaths];
+}
+
+interface Props {
+  pageType: 'tour' | 'guide';
+  tour?: Tour;
+  guide?: Guide;
+}
+
+const { pageType, tour, guide } = Astro.props;
+
+const title = pageType === 'tour' && tour ? tour.title : guide!.title;
+const description = pageType === 'tour' && tour ? tour.metaDescription : guide!.metaDescription;
+const image = pageType === 'tour' && tour ? tour.image : guide!.image;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  image={image}
+  type="article"
+>
+  {pageType === 'tour' && tour ? (
+    <TourPageContent tour={tour} />
+  ) : guide ? (
+    <GuidePageContent guide={guide} />
+  ) : null}
+</BaseLayout>

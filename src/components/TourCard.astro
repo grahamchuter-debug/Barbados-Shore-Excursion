@@ -1,0 +1,47 @@
+---
+import type { Tour } from '../data/tours';
+import Badge from './Badge.astro';
+
+interface Props {
+  tour: Tour;
+  excerpt?: string;
+}
+
+const { tour, excerpt } = Astro.props;
+const text = excerpt ?? tour.highlights[0];
+---
+
+<article class="tour-card">
+  <div class="tour-card-image">
+    <a href={`/${tour.slug}`}>
+      <img src={tour.image} alt={tour.imageAlt} loading="lazy" width="400" height="250" />
+    </a>
+  </div>
+  <div class="tour-card-body">
+    <div class="badge-row">
+      {tour.badges.slice(0, 2).map((b) => (
+        <Badge type="best" label={b} />
+      ))}
+      {tour.returnToShip && <Badge type="ship" label="Return To Ship On Time" />}
+    </div>
+    <h3><a href={`/${tour.slug}`}>{tour.shortTitle}</a></h3>
+    <div class="tour-meta">
+      <span class="tour-price">
+        {tour.salePrice ? (
+          <>
+            {tour.salePrice} <s>{tour.price}</s>
+          </>
+        ) : (
+          tour.price
+        )}
+      </span>
+      <span>{tour.duration}</span>
+      <span>{tour.activityLevel}</span>
+    </div>
+    <p>{text}</p>
+    <div class="tour-card-footer">
+      <a href={`/${tour.slug}`} class="btn btn-secondary">Learn More</a>
+      <a href={tour.bookingUrl} class="btn btn-primary" target="_blank" rel="noopener sponsored">Book Now</a>
+    </div>
+  </div>
+</article>

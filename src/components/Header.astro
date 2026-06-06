@@ -1,0 +1,24 @@
+---
+import { SITE } from '../data/site';
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/" class="logo">Barbados <span>Shore Excursion</span></a>
+    <button class="nav-toggle" aria-label="Toggle navigation" id="nav-toggle">☰</button>
+    <nav class="site-nav" id="site-nav">
+      <a href="/best-barbados-shore-excursions">Excursions</a>
+      <a href="/barbados-port-guide">Port Guide</a>
+      <a href="/one-day-in-barbados-from-a-cruise-ship">One Day</a>
+      <a href="/carlisle-bay-guide">Carlisle Bay</a>
+      <a href="/harrisons-cave-guide">Harrison's Cave</a>
+      <a href={SITE.affiliateBase} class="nav-cta" target="_blank" rel="noopener sponsored">Book Tours</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const nav = document.getElementById('site-nav');
+  toggle?.addEventListener('click', () => nav?.classList.toggle('open'));
+</script>

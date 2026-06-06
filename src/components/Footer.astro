@@ -1,0 +1,56 @@
+---
+import { SITE } from '../data/site';
+import { tours } from '../data/tours';
+import { guides } from '../data/guides';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>Barbados Shore Excursion</h4>
+        <p>
+          Your authority guide to Barbados shore excursions for cruise passengers arriving at
+          Bridgetown cruise port in the Caribbean. Plan your port day with confidence — beaches,
+          caves, turtles, rum, and culture.
+        </p>
+      </div>
+      <div>
+        <h4>Top Tours</h4>
+        <ul class="footer-links">
+          {tours.slice(0, 5).map((t) => (
+            <li><a href={`/${t.slug}`}>{t.shortTitle}</a></li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h4>More Tours</h4>
+        <ul class="footer-links">
+          {tours.slice(5).map((t) => (
+            <li><a href={`/${t.slug}`}>{t.shortTitle}</a></li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h4>Port Guides</h4>
+        <ul class="footer-links">
+          {guides.map((g) => (
+            <li><a href={`/${g.slug}`}>{g.title.split('—')[0].trim()}</a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>
+        © {year} {SITE.name}. Independent cruise passenger resource for Barbados, Bridgetown, and the
+        Caribbean. Not affiliated with any cruise line. Tour bookings via Shore Excursions Group.
+      </p>
+      <p>
+        <a href={SITE.url}>barbadosshoreexcursion.com</a> — Barbados shore excursions from Bridgetown
+        cruise port.
+      </p>
+    </div>
+  </div>
+</footer>

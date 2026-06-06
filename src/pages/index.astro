@@ -1,0 +1,401 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import TourCard from '../components/TourCard.astro';
+import CTABand from '../components/CTABand.astro';
+import { tours } from '../data/tours';
+import { guides } from '../data/guides';
+import { SITE, PORT_INFO } from '../data/site';
+
+const featuredTours = tours.filter((t) =>
+  ['swim-with-turtles-tour', 'harrisons-cave-tour', 'barbados-beach-day', 'bajan-paradise'].includes(t.slug)
+);
+
+const homepageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TravelAgency',
+  name: SITE.name,
+  url: SITE.url,
+  description: SITE.tagline,
+  areaServed: {
+    '@type': 'Place',
+    name: 'Bridgetown Cruise Port, Barbados',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Bridgetown',
+      addressCountry: 'Barbados',
+    },
+  },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How far is Carlisle Bay from the Bridgetown cruise port?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Carlisle Bay is approximately 1.5 miles (2.4 km) from the Bridgetown cruise terminal — about 10–15 minutes on foot or 5 minutes by taxi.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: "How far is Harrison's Cave from the cruise port?",
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: "Harrison's Cave is about 7 miles (11 km) inland from Bridgetown, roughly 25–30 minutes by tour bus or taxi.",
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is the best Barbados shore excursion for first-time visitors?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: "Harrison's Cave Tour and Highlights of Barbados are top picks for first-time cruise passengers. Swim with Turtles is the most popular wildlife experience.",
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is Barbados safe for cruise passengers?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Barbados is among the safer Caribbean destinations. The Bridgetown cruise port and tourist areas are well-travelled. Use licensed taxis and return to ship 60–90 minutes before all-aboard.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What currency is used in Barbados?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The Barbadian dollar (BBD) is the local currency, fixed at approximately 2 BBD per 1 USD. US dollars are widely accepted.',
+      },
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title="Barbados Shore Excursions — Best Tours from Bridgetown Cruise Port"
+  description="Plan the perfect Barbados port day from Bridgetown. Top shore excursions — Harrison's Cave, Carlisle Bay beaches, swim with turtles, rum tours, and culture. Cruise passenger guides and guaranteed return-to-ship tours."
+  schema={[homepageSchema, faqSchema]}
+>
+  <Hero
+    title="Best Barbados Shore Excursions for Cruise Passengers"
+    subtitle="Arriving at Bridgetown cruise port? Discover top-rated tours, port guides, and insider tips for a safe, unforgettable Caribbean port day in Barbados."
+    image="/images/hero-carlisle-bay.jpg"
+    imageAlt="Turquoise Carlisle Bay Barbados beach near Bridgetown cruise port for shore excursion passengers."
+    primaryCta={{ label: 'Browse Top Excursions', href: '/best-barbados-shore-excursions' }}
+    secondaryCta={{ label: 'Bridgetown Port Guide', href: '/barbados-port-guide' }}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Shore Excursions Group</span>
+        <h2>Best Barbados Shore Excursions</h2>
+        <p>Top-rated tours for cruise passengers docking at Bridgetown — book with confidence and guaranteed return to your ship.</p>
+      </div>
+      <div class="tour-grid">
+        {tours.map((tour) => <TourCard tour={tour} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Why Barbados</span>
+        <h2>Why Cruise Passengers Choose Barbados</h2>
+        <p>Barbados blends British heritage, turquoise Caribbean beaches, and world-class attractions minutes from your ship.</p>
+      </div>
+      <div class="two-col">
+        <div>
+          <p>
+            Bridgetown is one of the Caribbean's most popular cruise ports — a UNESCO World Heritage capital where
+            historic streets meet the calm waters of Carlisle Bay. Cruise passengers love Barbados for its compact
+            layout: beaches, turtle snorkelling, and downtown shopping are walkable or a short taxi from the pier.
+          </p>
+          <p>
+            Inland, Harrison's Cave delivers a spectacular underground adventure. Along the coast, Mount Gay Rum
+            distills centuries of island heritage. Whether you want a lazy beach day, a cultural food walk, or a
+            private fishing charter, Barbados packs variety into a single port call.
+          </p>
+          <a href="/one-day-in-barbados-from-a-cruise-ship" class="btn btn-primary">Plan Your Port Day</a>
+        </div>
+        <div class="snapshot-grid">
+          <div class="snapshot-box">
+            <div class="icon">🏖</div>
+            <h3>Carlisle Bay</h3>
+            <p>{PORT_INFO.walkingDistanceCarlisleBay}</p>
+          </div>
+          <div class="snapshot-box">
+            <div class="icon">🦇</div>
+            <h3>Harrison's Cave</h3>
+            <p>{PORT_INFO.drivingDistanceHarrisonsCave}</p>
+          </div>
+          <div class="snapshot-box">
+            <div class="icon">🥃</div>
+            <h3>Mount Gay Rum</h3>
+            <p>{PORT_INFO.drivingDistanceMountGay}</p>
+          </div>
+          <div class="snapshot-box">
+            <div class="icon">🐢</div>
+            <h3>Sea Turtles</h3>
+            <p>Swim with turtles in Carlisle Bay Marine Park</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Editor's Picks</span>
+        <h2>Featured Excursions</h2>
+        <p>Our most-booked Barbados shore excursions for families, couples, and first-time visitors.</p>
+      </div>
+      <div class="tour-grid">
+        {featuredTours.map((tour) => <TourCard tour={tour} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Quick Reference</span>
+        <h2>Cruise Passenger Snapshot</h2>
+        <p>Essential Bridgetown port facts at a glance for your Barbados cruise day.</p>
+      </div>
+      <div class="snapshot-grid">
+        <div class="snapshot-box">
+          <div class="icon">⚓</div>
+          <h3>Cruise Port</h3>
+          <p>Bridgetown Deep Water Harbour — downtown and Carlisle Bay nearby</p>
+        </div>
+        <div class="snapshot-box">
+          <div class="icon">🚕</div>
+          <h3>Taxis</h3>
+          <p>Licensed taxis at terminal; agree fare in BBD or USD (2:1 rate)</p>
+        </div>
+        <div class="snapshot-box">
+          <div class="icon">⏰</div>
+          <h3>All Aboard</h3>
+          <p>{PORT_INFO.allAboardBuffer}</p>
+        </div>
+        <div class="snapshot-box">
+          <div class="icon">💵</div>
+          <h3>Currency</h3>
+          <p>{PORT_INFO.currency}</p>
+        </div>
+        <div class="snapshot-box">
+          <div class="icon">🌤</div>
+          <h3>Weather</h3>
+          <p>{PORT_INFO.weather}</p>
+        </div>
+        <div class="snapshot-box">
+          <div class="icon">🛡</div>
+          <h3>Safety</h3>
+          <p>Barbados is among the safest Caribbean ports for tourists</p>
+        </div>
+      </div>
+      <p style="text-align: center; margin-top: 1.5rem;">
+        <a href="/barbados-port-guide">Full Bridgetown port guide →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Top Things To Do In Barbados</h2>
+        <p>Must-see experiences for cruise passengers with limited time in Bridgetown.</p>
+      </div>
+      <div class="link-grid">
+        <a href="/harrisons-cave-tour" class="link-card">Explore Harrison's Cave underground tram tour</a>
+        <a href="/swim-with-turtles-tour" class="link-card">Swim with sea turtles in Carlisle Bay</a>
+        <a href="/barbados-beach-day" class="link-card">Relax on Carlisle Bay white sand beaches</a>
+        <a href="/mount-gay-rum-distillery-tour" class="link-card">Taste rum at Mount Gay distillery</a>
+        <a href="/barbados-food-and-heritage-tour" class="link-card">Sample Bajan food in Bridgetown</a>
+        <a href="/highlights-of-barbados" class="link-card">See island highlights in half a day</a>
+        <a href="/discover-scuba-barbados" class="link-card">Try introductory scuba diving</a>
+        <a href="/barbados-fishing-charter" class="link-card">Private deep sea fishing charter</a>
+        <a href="/oistins-fish-fry-guide" class="link-card">Experience Oistins fish fry culture</a>
+        <a href="/can-you-explore-barbados-without-an-excursion" class="link-card">Explore independently from port</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="feature-block">
+        <div class="feature-text">
+          <span class="section-label">Natural Wonder</span>
+          <h2>Harrison's Cave</h2>
+          <p>
+            Barbados' premier attraction lies 25–30 minutes inland from Bridgetown. Electric trams carry you through
+            illuminated caverns of stalactites, stalagmites, and emerald pools — a perfect rainy-day shore excursion
+            with easy activity level for families.
+          </p>
+          <div class="btn-group">
+            <a href="/harrisons-cave-tour" class="btn btn-primary">Harrison's Cave Tour</a>
+            <a href="/harrisons-cave-guide" class="btn btn-secondary">Cave Guide</a>
+          </div>
+        </div>
+        <div class="feature-image">
+          <img
+            src="/images/harrisons-cave.jpg"
+            alt="Harrison's Cave stalactites and underground pools on a Barbados shore excursion from Bridgetown."
+            width="600"
+            height="375"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <div class="feature-block reverse">
+        <div class="feature-text">
+          <span class="section-label">Marine Adventure</span>
+          <h2>Carlisle Bay &amp; Turtle Snorkel</h2>
+          <p>
+            Just 1.5 miles from the cruise terminal, Carlisle Bay offers turquoise water, six shipwrecks, and reliable
+            sea turtle encounters. Snorkel boat tours and beach clubs make this the top water excursion for Barbados
+            cruise passengers.
+          </p>
+          <div class="btn-group">
+            <a href="/swim-with-turtles-tour" class="btn btn-primary">Swim with Turtles</a>
+            <a href="/carlisle-bay-guide" class="btn btn-secondary">Carlisle Bay Guide</a>
+          </div>
+        </div>
+        <div class="feature-image">
+          <img
+            src="/images/sea-turtle.jpg"
+            alt="Sea turtle snorkelling in Carlisle Bay Barbados near Bridgetown cruise port shore excursions."
+            width="600"
+            height="375"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Best Beaches For Cruise Passengers</h2>
+        <p>Calm, accessible beaches near Bridgetown cruise port — ranked for cruise day convenience.</p>
+      </div>
+      <div class="two-col">
+        <div>
+          <h3>Carlisle Bay</h3>
+          <p>
+            The #1 choice for cruise passengers. Walk or taxi from port, rent loungers at Savvy on the Bay or
+            Boatyard, and snorkel shipwrecks in calm water. Book the <a href="/barbados-beach-day">Barbados Beach Day</a> excursion for guaranteed access.
+          </p>
+          <h3>Brownes Beach</h3>
+          <p>
+            Adjacent to Carlisle Bay with public access and clear water. Good for independent beachgoers with limited time.
+          </p>
+          <h3>Brandons Beach</h3>
+          <p>
+            North of the port near Mount Gay — less crowded, popular on creative and cultural tours.
+          </p>
+        </div>
+        <div class="content-image">
+          <img
+            src="/images/beach-day.jpg"
+            alt="Best beaches for Barbados cruise passengers at Carlisle Bay near Bridgetown port."
+            width="600"
+            height="375"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2>Rum, Food &amp; Culture</h2>
+        <p>Taste the flavours of Barbados — from Mount Gay rum to Oistins fish fry and Bridgetown heritage walks.</p>
+      </div>
+      <div class="tour-grid">
+        <TourCard tour={tours.find((t) => t.slug === 'mount-gay-rum-distillery-tour')!} />
+        <TourCard tour={tours.find((t) => t.slug === 'barbados-food-and-heritage-tour')!} />
+        <TourCard tour={tours.find((t) => t.slug === 'highlights-of-barbados')!} />
+      </div>
+      <p style="text-align: center; margin-top: 1.5rem;">
+        <a href="/mount-gay-rum-distillery-guide">Mount Gay guide</a> ·
+        <a href="/oistins-fish-fry-guide">Oistins Fish Fry guide</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Barbados Cruise Port FAQ</h2>
+        <p>Common questions from cruise passengers visiting Bridgetown, Barbados.</p>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>How far is Carlisle Bay from the Bridgetown cruise port?</summary>
+          <div class="faq-answer">
+            Carlisle Bay is approximately 1.5 miles (2.4 km) from the cruise terminal — about 10–15 minutes on foot along the waterfront, or 5 minutes by taxi ($10–15 USD). See our <a href="/carlisle-bay-guide">Carlisle Bay guide</a>.
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>How far is Harrison's Cave from the cruise port?</summary>
+          <div class="faq-answer">
+            Harrison's Cave is roughly 7 miles (11 km) inland — expect 25–30 minutes by tour bus or taxi. Book the <a href="/harrisons-cave-tour">Harrison's Cave Tour</a> for guaranteed round-trip timing.
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>What are the best shore excursions for families?</summary>
+          <div class="faq-answer">
+            Top family picks: <a href="/swim-with-turtles-tour">Swim with Turtles</a>, <a href="/harrisons-cave-tour">Harrison's Cave</a>, and <a href="/barbados-beach-day">Barbados Beach Day</a>. All offer easy-to-moderate activity with reliable return to ship.
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>Can I explore Barbados without booking an excursion?</summary>
+          <div class="faq-answer">
+            Yes — downtown Bridgetown and Carlisle Bay are easily reached on foot or by taxi. Distant attractions like Harrison's Cave are better with organised tours. Read our full <a href="/can-you-explore-barbados-without-an-excursion">DIY port guide</a>.
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>What should I do with only a few hours in port?</summary>
+          <div class="faq-answer">
+            Stick close to port: <a href="/barbados-food-and-heritage-tour">Food and Heritage Tour</a> (2.5 hrs), <a href="/harrisons-cave-tour">Harrison's Cave</a> (3 hrs), or a quick taxi to Carlisle Bay beach.
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>Is Barbados safe for cruise passengers?</summary>
+          <div class="faq-answer">
+            Barbados is among the safer Caribbean destinations. Use licensed taxis, stay in tourist areas, and return early. Details in our <a href="/is-barbados-safe-for-cruise-passengers">safety guide</a>.
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2>Barbados Port Guides</h2>
+        <p>Authority guides written for cruise passengers arriving at Bridgetown.</p>
+      </div>
+      <div class="link-grid">
+        {guides.map((g) => (
+          <a href={`/${g.slug}`} class="link-card">{g.title.split('—')[0].trim()}</a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABand />
+</BaseLayout>

@@ -1,0 +1,90 @@
+---
+import type { Guide } from '../data/guides';
+import { getTourBySlug } from '../data/tours';
+import { getGuideBySlug } from '../data/guides';
+import Hero from './Hero.astro';
+import CTABand from './CTABand.astro';
+import TourCard from './TourCard.astro';
+import { SITE } from '../data/site';
+
+interface Props {
+  guide: Guide;
+}
+
+const { guide } = Astro.props;
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: guide.title,
+  description: guide.metaDescription,
+  image: new URL(guide.image, SITE.url).href,
+  author: { '@type': 'Organization', name: SITE.name },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  about: {
+    '@type': 'Place',
+    name: 'Bridgetown Cruise Port, Barbados',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Bridgetown',
+      addressCountry: 'BB',
+    },
+  },
+};
+
+const relatedTourData = guide.relatedTours.map((s) => getTourBySlug(s)).filter(Boolean);
+const relatedGuideData = guide.relatedGuides.map((s) => getGuideBySlug(s)).filter(Boolean);
+---
+
+<Hero
+  title={guide.title.split('—')[0].trim()}
+  subtitle={guide.intro}
+  image={guide.image}
+  imageAlt={guide.imageAlt}
+  compact={true}
+  primaryCta={{ label: 'Best Shore Excursions', href: '/best-barbados-shore-excursions' }}
+  secondaryCta={{ label: 'Port Guide', href: '/barbados-port-guide' }}
+/>
+
+<div class="page-content">
+  <div class="container prose">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a><span>›</span>
+      <a href="/barbados-port-guide">Guides</a><span>›</span>
+      {guide.title.split('—')[0].trim()}
+    </nav>
+
+    <p class="lead">{guide.intro}</p>
+
+    {guide.sections.map((section) => (
+      <section>
+        <h2>{section.heading}</h2>
+        <p>{section.content}</p>
+      </section>
+    ))}
+
+    {relatedTourData.length > 0 && (
+      <section>
+        <h2>Recommended Barbados Shore Excursions</h2>
+        <div class="tour-grid">
+          {relatedTourData.map((t) => t && <TourCard tour={t} />)}
+        </div>
+      </section>
+    )}
+
+    {relatedGuideData.length > 0 && (
+      <section>
+        <h2>Related Guides</h2>
+        <div class="link-grid">
+          {relatedGuideData.map((g) => g && (
+            <a href={`/${g.slug}`} class="link-card">{g.title.split('—')[0].trim()}</a>
+          ))}
+        </div>
+      </section>
+    )}
+  </div>
+</div>
+
+<CTABand />
+
+<script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
