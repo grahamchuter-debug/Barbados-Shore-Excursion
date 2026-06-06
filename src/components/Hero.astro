@@ -13,7 +13,7 @@ const { title, subtitle, image, imageAlt, compact = false, primaryCta, secondary
 ---
 
 <section class={`hero ${compact ? 'hero-compact' : ''}`}>
-  <img class="hero-bg" src={image} alt={imageAlt} width="1400" height="600" />
+  <img class="hero-bg" src={image} alt={imageAlt} width="1400" height="600" fetchpriority="high" decoding="async" />
   <div class="hero-overlay"></div>
   <div class="container hero-content">
     <h1>{title}</h1>

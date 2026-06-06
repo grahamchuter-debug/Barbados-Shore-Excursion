@@ -14,7 +14,7 @@ const text = excerpt ?? tour.highlights[0];
 <article class="tour-card">
   <div class="tour-card-image">
     <a href={`/${tour.slug}`}>
-      <img src={tour.image} alt={tour.imageAlt} loading="lazy" width="400" height="250" />
+      <img src={tour.image} alt={tour.imageAlt} width="400" height="250" decoding="async" />
     </a>
   </div>
   <div class="tour-card-body">
