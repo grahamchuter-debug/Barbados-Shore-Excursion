@@ -86,7 +86,7 @@ After your cave experience, transportation returns you to the port with time to 
     bookingUrl: 'https://www.shoreexcursionsgroup.com/tour/barbados-beach-day/cabrbeach',
     image: '/images/beach-day.jpg',
     imageAlt:
-      'White sand beach loungers at Carlisle Bay Barbados shore excursion near Bridgetown cruise port.',
+      'Aerial view of a secluded white sand Barbados beach with turquoise Caribbean water, palm trees, and rocky cliffs on a Barbados Beach Day shore excursion from Bridgetown cruise port.',
     badges: ['Best Beach Day', 'Best for Couples', 'Best for Families'],
     returnToShip: true,
     highlights: [
@@ -354,7 +354,7 @@ Because Carlisle Bay sits adjacent to Bridgetown, transfer times are short — g
     bookingUrl: 'https://www.shoreexcursionsgroup.com/tour/barbados-beach-day-and-turtle-swim/cabrturtle',
     image: '/images/sea-turtle.jpg',
     imageAlt:
-      'Sea turtle swimming in Carlisle Bay on a Swim with Turtles Barbados shore excursion from Bridgetown cruise port.',
+      'Green sea turtle swimming in clear turquoise Caribbean water on a Swim with Turtles Barbados shore excursion from Bridgetown cruise port.',
     badges: ['Best Turtle Swim', 'Best for Families', 'Best Snorkel Tour'],
     returnToShip: true,
     highlights: [

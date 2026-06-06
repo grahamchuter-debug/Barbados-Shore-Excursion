@@ -213,7 +213,7 @@ export const guides: Guide[] = [
       'How to swim with sea turtles in Barbados from your cruise ship. Carlisle Bay turtle tours, best excursions, etiquette, and tips for Bridgetown cruise passengers.',
     image: '/images/sea-turtle.jpg',
     imageAlt:
-      'Swim with sea turtles in Carlisle Bay Barbados — guide for cruise ship passengers at Bridgetown port.',
+      'Green sea turtle swimming underwater in clear turquoise Barbados water — swim with turtles guide for cruise passengers at Bridgetown port.',
     intro:
       'Barbados is one of the Caribbean\'s best destinations for swimming with sea turtles in the wild. Carlisle Bay\'s protected waters host green and hawksbill turtles accustomed to snorkellers — but responsible viewing keeps these animals safe for future generations.',
     sections: [
